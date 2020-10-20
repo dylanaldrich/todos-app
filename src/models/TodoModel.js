@@ -14,7 +14,13 @@ class TodoModel {
     static create = (todo) => {
         const request = axios.post(URL, todo);
         return request;
-    }
+    };
+
+    // this method sends a delete request to the axios db
+    static delete = (todo) => {
+        const request = axios.delete(`${URL}/${todo._id}`);
+        return request;
+    };
 };
 
 export default TodoModel;

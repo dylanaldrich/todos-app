@@ -7,7 +7,9 @@ const Todos = (props) => {
         return (
             <Todo
             key = {todo._id}
-            todo = {todo} />
+            todo = {todo}
+            // this passes the deleteTodo method from the TodosContainer into each instance of Todo component, as a prop:
+            deleteTodo={props.deleteTodo} />
         );
     });
 

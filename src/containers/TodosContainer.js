@@ -38,6 +38,20 @@ class TodosContainer extends React.Component {
             this.setState({ todos: todos }); // finally updates state to include the most recent addition
         });
     };
+
+    
+    // First this method invokes the delete method from the TodoModel, and then...
+    // after the todo delete response is sent back from the server, we find the corresponding entry for the todo in our todos state array and remove it.
+    deleteTodo = (todo) => {
+        TodoModel.delete(todo).then((res) => {
+            // this takes the state todos array and filters out the todo that was deleted, by returning the one todo at the index where the id doesn't match with the response from the axios db, therefore separating it from the todos array
+            const todos = this.state.todos.filter((todo) => {
+                return todo._id !== res.data._id; // wherever a todo's id doesn't match with the db response, return that todo (therefore pulling it out of the state todos array)
+            });
+            // then it resets state, minus the todo which was delete
+            this.setState({todos});
+        })
+    }
     
     render() {
         // this will pass the array of todos, as a prop, to the Todos component
@@ -45,7 +59,11 @@ class TodosContainer extends React.Component {
         return (
             <div className="todosContainer">
                 <CreateTodoForm createTodo={this.createTodo} /> 
-                <Todos todos={this.state.todos} />
+                <Todos 
+                    todos={this.state.todos}
+                    // passes the deleteTodo method as a prop to the child component: Todos
+                    deleteTodo={this.deleteTodo}
+                />
             </div>
         );
     };
