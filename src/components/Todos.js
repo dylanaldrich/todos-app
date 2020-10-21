@@ -8,8 +8,9 @@ const Todos = (props) => {
             <Todo
             key = {todo._id}
             todo = {todo}
-            // this passes the deleteTodo method from the TodosContainer into each instance of Todo component, as a prop:
-            deleteTodo={props.deleteTodo} />
+            // this passes the deleteTodo and updateTodo methods from the TodosContainer into each instance of Todo component, as props:
+            deleteTodo={props.deleteTodo}
+            updateTodo={props.updateTodo} />
         );
     });
 

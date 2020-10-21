@@ -16,6 +16,12 @@ class TodoModel {
         return request;
     };
 
+    // this method sends a put request to update the argument todo
+    static update = (todo) => {
+        const request = axios.put(`${URL}/${todo._id}`, todo);
+        return request;
+    };
+
     // this method sends a delete request to the axios db
     static delete = (todo) => {
         const request = axios.delete(`${URL}/${todo._id}`);

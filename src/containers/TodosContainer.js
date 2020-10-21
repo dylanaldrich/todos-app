@@ -52,6 +52,19 @@ class TodosContainer extends React.Component {
             this.setState({todos});
         })
     }
+
+    updateTodo = (todo) => {
+        const isUpdatedTodo = t => {
+            return t._id === todo._id; // this is basically returning the id of the updated todo when the update form is submitted
+        };
+
+        TodoModel.update(todo) // this runs the update method to update the todo in the db
+            .then((res) => { // then the response sent from the db is used to find the todo (that was updated in the db) inside of state and update state 
+                const todos = this.state.todos;
+                todos.find(isUpdatedTodo).body = todo.body;
+                this.setState({todos: todos});
+            });
+    };
     
     render() {
         // this will pass the array of todos, as a prop, to the Todos component
@@ -63,6 +76,8 @@ class TodosContainer extends React.Component {
                     todos={this.state.todos}
                     // passes the deleteTodo method as a prop to the child component: Todos
                     deleteTodo={this.deleteTodo}
+                    // passes the updateTodo method as a prop to the child component: Todos
+                    updateTodo={this.updateTodo}
                 />
             </div>
         );
